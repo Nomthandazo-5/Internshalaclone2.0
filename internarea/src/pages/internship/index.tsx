@@ -59,7 +59,7 @@ const index = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/internship");
+        const res = await axios.get("https://internshalaclone2-0-1.onrender.com/api/internship");
 
         if (Array.isArray(res.data)) {
           setinternship(res.data);

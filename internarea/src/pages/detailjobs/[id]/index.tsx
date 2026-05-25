@@ -117,15 +117,15 @@ import { toast } from "react-toastify";
 //     },
 //   ];
 const index = () => {
-//  const user=useSelector(selectuser)
-const user = { name: "Test", email: "test@test.com" };
+  //  const user=useSelector(selectuser)
+  const user = { name: "Test", email: "test@test.com" };
   const router = useRouter();
   const { id } = router.query;
   const [jobdata, setjob] = useState<any>([]);
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/job/${id}`);
+        const res = await axios.get(`https://internshalaclone2-0-1.onrender.com/api/job/${id}`);
         setjob(res.data);
       } catch (error) {
         console.log(error);
@@ -163,7 +163,7 @@ const user = { name: "Test", email: "test@test.com" };
         availability,
       };
       await axios.post(
-        "http://localhost:5000/api/application/submitapplication",
+        "https://internshalaclone2-0-1.onrender.com/api/application/submitapplication",
         applicationdata
       );
       toast.success("Application submit successfully");

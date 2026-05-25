@@ -6,7 +6,7 @@ export default function ResetPassword() {
   const { token } = router.query;
   const [password, setPassword] = useState("");
   const handleReset = async () => {
-    const res = await fetch("http://localhost:5000/api/admin/resetpassword", {
+    const res = await fetch("https://internshalaclone2-0-1.onrender.com/api/admin/resetpassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

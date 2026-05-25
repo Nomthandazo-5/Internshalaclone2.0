@@ -123,11 +123,11 @@ const index = () => {
     salary: 50,
     experience: "",
   });
-  const [filteredJobs,setjob]=useState<any>([])
-  useEffect(()=>{
-    const fetchdata=async()=>{
+  const [filteredJobs, setjob] = useState<any>([])
+  useEffect(() => {
+    const fetchdata = async () => {
       try {
-        const res=await axios.get("http://localhost:5000/api/job")     
+        const res = await axios.get("https://internshalaclone2-0-1.onrender.com/api/job")
         setjob(res.data)
         setfilteredjobs(res.data)
       } catch (error) {
@@ -135,9 +135,9 @@ const index = () => {
       }
     }
     fetchdata()
-  },[])
+  }, [])
   useEffect(() => {
-    const filtered = filteredJobs.filter((job:any) => {
+    const filtered = filteredJobs.filter((job: any) => {
       const matchesCategory = job.category
         .toLowerCase()
         .includes(filter.category.toLowerCase());
@@ -329,7 +329,7 @@ const index = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                      Jobs
+                        Jobs
                       </span>
                       <div className="flex items-center space-x-1 text-green-600">
                         <Clock className="h-4 w-4" />

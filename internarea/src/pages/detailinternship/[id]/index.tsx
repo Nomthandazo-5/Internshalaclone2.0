@@ -82,7 +82,7 @@ const index = () => {
       if (!router.isReady || !id) return;
 
       try {
-        const res = await axios.get("http://localhost:5000/api/internship");
+        const res = await axios.get("https://internshalaclone2-0-1.onrender.com/api/internship");
         setinternship(res.data)
       } catch (error) {
         console.log(error);
@@ -120,7 +120,7 @@ const index = () => {
         Application: id,
         availability
       }
-      await axios.post("http://localhost:5000/api/application", applicationdata);
+      await axios.post("https://internshalaclone2-0-1.onrender.com/api/application", applicationdata);
       toast.success("Application submit successfully")
       router.push('/internship')
     } catch (error) {
@@ -128,7 +128,7 @@ const index = () => {
       toast.error("Failed to submit application")
     }
   }
-   if (!internshipData) {
+  if (!internshipData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>

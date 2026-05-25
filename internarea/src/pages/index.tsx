@@ -119,8 +119,8 @@ export default function SvgSlider() {
     const fetchdata = async () => {
       try {
         const [internshipres, jobres] = await Promise.all([
-          axios.get("http://localhost:5000/api/internship"),
-          axios.get("http://localhost:5000/api/job"),
+          axios.get("https://internshalaclone2-0-1.onrender.com/api/internship"),
+          axios.get("https://internshalaclone2-0-1.onrender.com/api/job"),
         ]);
         setinternship(internshipres.data);
         setjob(jobres.data);
@@ -143,7 +143,7 @@ export default function SvgSlider() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Make your dream career a reality
-        </h1>    
+        </h1>
         <p className="text-xl text-gray-600">Trending on InternArea 🔥</p>
       </div>
       {/* Swiper section */}

@@ -7,7 +7,7 @@ export default function ForgotPassword() {
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/admin/forgotpassword",
+        "https://internshalaclone2-0-1.onrender.com/api/admin/forgotpassword",
         { username }
       );
       alert("Reset token: " + res.data.token);

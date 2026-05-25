@@ -29,7 +29,7 @@ interface Post {
 
 const PublicSpace = () => {
     const user = useSelector(selectuser);
-    console.log("Current User from Redux:", user); 
+    console.log("Current User from Redux:", user);
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [friendCount, setFriendCount] = useState(0);
@@ -57,7 +57,7 @@ const PublicSpace = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/feed/all");
+                const res = await axios.get("https://internshalaclone2-0-1.onrender.com/api/feed/all");
                 setPosts(res.data);
             } catch (error) {
                 console.error("Error fetching feed:", error);
@@ -68,7 +68,7 @@ const PublicSpace = () => {
         const fetchUserStats = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:5000/api/feed/stats/${user._id}`
+                    `https://internshalaclone2-0-1.onrender.com/api/feed/stats/${user._id}`
                 );
                 setFriendCount(res.data.friendCount);
                 setPostsToday(res.data.postsToday);
@@ -118,7 +118,7 @@ const PublicSpace = () => {
 
         try {
             const res = await axios.post(
-                "http://localhost:5000/api/feed/create",
+                "https://internshalaclone2-0-1.onrender.com/api/feed/create",
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -144,7 +144,7 @@ const PublicSpace = () => {
 
     const handleLike = async (postId: string) => {
         try {
-            await axios.put(`http://localhost:5000/api/feed/like/${postId}`);
+            await axios.put(`https://internshalaclone2-0-1.onrender.com/api/feed/like/${postId}`);
             setPosts(posts.map(p => p._id === postId ? { ...p, likes: p.likes + 1 } : p));
         } catch (error) {
             console.error(error);

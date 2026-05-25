@@ -29,7 +29,7 @@ const index = () => {
     try {
       setisloading(true);
       const res = await axios.post(
-        "http://localhost:5000/api/admin/adminlogin",
+        "https://internshalaclone2-0-1.onrender.com/api/admin/adminlogin",
         formadata
       );
       localStorage.setItem("token", res.data.token);
