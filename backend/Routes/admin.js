@@ -33,11 +33,12 @@ router.post("/createadmin", async (req, res) => {
         });
         if (existing)
             return res.status(400).json("Admin already exists");
+        const hashedPassword = await bcrypt.hash(password, 10);
         const newAdmin = new Admin({
             username,
             email,
             phone,
-            password
+            password: hashedPassword
         });
         await newAdmin.save();
         res.json({
@@ -150,7 +151,8 @@ router.post("/adminlogin", async (req, res) => {
         if (!admin) {
             return res.status(404).json({ message: "Admin not found" });
         }
-        if (password !== admin.password) {
+        const isPassword = await bcrypt.compare(password, admin.password);
+        if (!isPassword) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
         const token = jwt.sign(
