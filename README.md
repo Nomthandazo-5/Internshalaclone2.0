@@ -120,8 +120,9 @@ Render cold start delays on backend requests
 These helped me understand production-level debugging much better.
 
 Developer
-Built by: Nomthandazo
+Built by: Nomthandazo.
 This project was created as part of my learning journey in full-stack development and deployment workflows.
 
 Final Note
-This project was an Internship from Elevance Skills and through this internship, l learnt to connect frontend, backend, database, and deployment into one working system. It also gave me real experience dealing with production issues like CORS, authentication flow, and environment configuration.
+This project was an Internship from Elevance Skills and through this internship, l learnt to connect frontend, backend, database, and deployment into one working system. 
+It also gave me real experience dealing with production issues like CORS, authentication flow, and environment configuration.
