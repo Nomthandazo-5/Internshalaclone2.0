@@ -34,7 +34,7 @@ const index = () => {
       );
       localStorage.setItem("token", res.data.token);
       toast.success("logged in successfuly");
-      router.replace("/");
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
       toast.error("Invalid credentials");
