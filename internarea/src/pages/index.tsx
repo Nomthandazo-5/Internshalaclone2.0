@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -15,6 +16,28 @@ import Link from "next/link";
 import axios from "axios";
 
 export default function SvgSlider() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        router.replace("/adminlogin");
+      } else {
+        setLoading(false);
+      }
+    }
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg font-medium text-gray-700">Loading...</p>
+      </div>
+    );
+  }
   const categories = [
     "Big Brands",
     "Work From Home",

@@ -34,7 +34,7 @@ const index = () => {
       );
       localStorage.setItem("token", res.data.token);
       toast.success("logged in successfuly");
-      router.replace("/adminpanel");
+      router.replace("/");
     } catch (error) {
       console.log(error);
       toast.error("Invalid credentials");
