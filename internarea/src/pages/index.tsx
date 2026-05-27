@@ -123,20 +123,32 @@ export default function SvgSlider() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const [internshipres, jobres] = await Promise.all([
+        const [internshipres, jobres] = await Promise.allSettled([
           axios.get("https://internshalaclone2-0-1.onrender.com/api/internship"),
           axios.get("https://internshalaclone2-0-1.onrender.com/api/job"),
         ]);
 
-        setinternship(internshipres?.data || []);
-        setjob(jobres?.data || []);
+        if (internshipres.status === "fulfilled") {
+          setinternship(internshipres.value.data || []);
+        } else {
+          console.error("Internship API failed");
+        }
+
+        if (jobres.status === "fulfilled") {
+          setjob(jobres.value.data || []);
+        } else {
+          console.error("Job API failed");
+        }
+
+        if (
+          internshipres.status === "rejected" &&
+          jobres.status === "rejected"
+        ) {
+          setError("Failed to load data");
+        }
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-
-        setError("Failed to load internships and jobs");
-
-        setinternship([]);
-        setjob([]);
+        console.error(error);
+        setError("Something went wrong");
       } finally {
         setLoading(false);
       }
