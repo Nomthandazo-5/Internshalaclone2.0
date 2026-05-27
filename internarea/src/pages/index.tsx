@@ -123,11 +123,11 @@ export default function SvgSlider() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
     const token = localStorage.getItem("token");
-    
+
     if (!token) {
-      router.replace("/login");
+      window.location.href = "/login";
       return;
     }
 
@@ -149,9 +149,7 @@ export default function SvgSlider() {
 
     fetchdata();
   }, [router]);
-  if (loading) {
-    return <div>loading...</div>;
-  }
+  if(loading) return <div>loading...</div>;
   const filteredInternships = (internships || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
   );
@@ -287,7 +285,7 @@ export default function SvgSlider() {
       {/* INternship grid   */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {filteredInternships && filteredInternships.length > 0 ? (
-          filteredInternships.map((internship: any, index: any) => (
+          filteredInternships?.map((internship: any, index: any) => (
             <div
               key={index}
               className="bg-white rounded-lg shadow-md p-6 transition-transform hover:transform hover:scale-105"
@@ -336,7 +334,7 @@ export default function SvgSlider() {
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Latest Jobs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredJobs.map((job: any, index: any) => (
+          {filteredJobs?.map((job: any, index: any) => (
             <div
               key={index}
               className="bg-white rounded-lg shadow-md p-6 transition-transform hover:transform hover:scale-105"

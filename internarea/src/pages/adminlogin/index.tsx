@@ -1,10 +1,11 @@
+"use client";
+
 import axios from "axios";
 import { User, Lock } from "lucide-react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
-
 
 const index = () => {
   const [formadata, setformadata] = useState({

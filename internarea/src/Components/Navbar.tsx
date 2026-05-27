@@ -1,4 +1,6 @@
-import React, { use, useEffect, useRef, useState } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../Assets/logo.png";
 import Link from "next/link";
 import { auth, googleProvider } from "../firebase/firebase";
