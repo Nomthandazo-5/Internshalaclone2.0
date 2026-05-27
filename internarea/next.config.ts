@@ -10,8 +10,16 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; font-src 'self' https: data: *.vercel.com *.gstatic.com vercel.live *.public.blob.vercel-storage.com;",
+            value: `
+              default-src 'self';
+              connect-src 'self' https://internshalaclone2-0-1.onrender.com;
+              img-src 'self' data: blob: https:;
+              font-src 'self' https: data:;
+              style-src 'self' 'unsafe-inline';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval';
+            `
+              .replace(/\n/g, " ")
+              .trim(),
           },
         ],
       },
