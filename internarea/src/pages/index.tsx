@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -15,6 +16,8 @@ import Link from "next/link";
 import axios from "axios";
 
 export default function SvgSlider() {
+  const router = useRouter();
+
   const categories = [
     "Big Brands",
     "Work From Home",
@@ -115,7 +118,14 @@ export default function SvgSlider() {
   ];
   const [internships, setinternship] = useState<any>([]);
   const [jobs, setjob] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
     const fetchdata = async () => {
       try {
         const [internshipres, jobres] = await Promise.all([
@@ -126,10 +136,13 @@ export default function SvgSlider() {
         setjob(jobres.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchdata();
-  }, []);
+  }, [router]);
+  if (loading) return null;
   const [selectedCategory, setSelectedCategory] = useState("");
   const filteredInternships = internships.filter(
     (item: any) => !selectedCategory || item.category === selectedCategory

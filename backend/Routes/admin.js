@@ -92,7 +92,7 @@ router.post("/forgotpassword", async (req, res) => {
 router.post("/register", async (req, res) => {
     try {
         const { username, email, phone, password } = req.body;
-
+        const hashedPassword = await bcrypt.hash(password, 10);
         const admin = new Admin({
             username,
             email,
