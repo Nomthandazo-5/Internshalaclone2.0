@@ -15,7 +15,7 @@ const app = express();
 const port = 5000;
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://internshalaclone2-0.vercel.app'],
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true 
 }));
