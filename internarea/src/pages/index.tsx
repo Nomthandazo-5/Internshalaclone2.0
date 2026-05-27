@@ -131,15 +131,14 @@ export default function SvgSlider() {
         if (internshipres.status === "fulfilled") {
           setinternship(internshipres.value.data || []);
         } else {
-          console.error("Internship API failed");
+          console.error("Internship fetch failed:", internshipres.reason);
         }
 
         if (jobres.status === "fulfilled") {
           setjob(jobres.value.data || []);
         } else {
-          console.error("Job API failed");
+          console.error("Job fetch failed:", jobres.reason);
         }
-
         if (
           internshipres.status === "rejected" &&
           jobres.status === "rejected"
@@ -147,7 +146,7 @@ export default function SvgSlider() {
           setError("Failed to load data");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Unexpected error:", error);
         setError("Something went wrong");
       } finally {
         setLoading(false);
