@@ -116,11 +116,14 @@ export default function SvgSlider() {
     { number: "21Mn+", label: "active students" },
     { number: "600K+", label: "learners" },
   ];
-  const [internships, setinternship] = useState<any>([]);
-  const [jobs, setjob] = useState<any>([]);
+  const [internships, setinternship] = useState<any[]>([]);
+  const [jobs, setjob] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
     const token = localStorage.getItem("token");
     if (!token) {
       router.replace("/login");
@@ -142,12 +145,15 @@ export default function SvgSlider() {
     };
     fetchdata();
   }, [router]);
-  if (loading) return null;
+  if (loading) {
+    return <div>loading...</div>;
+  }
   const [selectedCategory, setSelectedCategory] = useState("");
-  const filteredInternships = internships.filter(
+  const filteredInternships = (internships || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
   );
-  const filteredJobs = jobs.filter(
+
+  const filteredJobs = (jobs || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
   );
   return (
