@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -16,11 +15,11 @@ import Link from "next/link";
 import axios from "axios";
 
 export default function SvgSlider() {
-  const router = useRouter();
   const [internships, setinternship] = useState<any[]>([]);
   const [jobs, setjob] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [error, setError] = useState("");
 
   const categories = [
     "Big Brands",
@@ -122,7 +121,6 @@ export default function SvgSlider() {
   ];
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const fetchdata = async () => {
       try {
         const [internshipres, jobres] = await Promise.all([
@@ -130,10 +128,15 @@ export default function SvgSlider() {
           axios.get("https://internshalaclone2-0-1.onrender.com/api/job"),
         ]);
 
-        setinternship(internshipres.data || []);
-        setjob(jobres.data || []);
+        setinternship(internshipres?.data || []);
+        setjob(jobres?.data || []);
       } catch (error) {
-        console.log(error);
+        console.error("Failed to fetch data:", error);
+
+        setError("Failed to load internships and jobs");
+
+        setinternship([]);
+        setjob([]);
       } finally {
         setLoading(false);
       }
@@ -141,8 +144,9 @@ export default function SvgSlider() {
 
     fetchdata();
   }, []);
-  
-  if(loading) return <div>loading...</div>;
+  if (loading) return <div>loading...</div>;
+  if (error) return <div>{error}</div>;
+
   const filteredInternships = (internships || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
   );
