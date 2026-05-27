@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../Assets/logo.png";
 import Link from "next/link";
@@ -17,10 +17,12 @@ interface User {
 }
 const Navbar = () => {
   const user = useSelector(selectuser);
+  const router = useRouter();
   const handlelogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
       toast.success("logged in successfully");
+      router.push("/adminpanel");
     } catch (error) {
       console.error(error);
       toast.error("login failed");
