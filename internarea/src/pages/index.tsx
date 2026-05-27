@@ -17,6 +17,10 @@ import axios from "axios";
 
 export default function SvgSlider() {
   const router = useRouter();
+  const [internships, setinternship] = useState<any[]>([]);
+  const [jobs, setjob] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const categories = [
     "Big Brands",
@@ -116,25 +120,24 @@ export default function SvgSlider() {
     { number: "21Mn+", label: "active students" },
     { number: "600K+", label: "learners" },
   ];
-  const [internships, setinternship] = useState<any[]>([]);
-  const [jobs, setjob] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    if (typeof window === "undefined") return;
+    
     const token = localStorage.getItem("token");
+    
     if (!token) {
       router.replace("/login");
       return;
     }
+
     const fetchdata = async () => {
       try {
         const [internshipres, jobres] = await Promise.all([
           axios.get("https://internshalaclone2-0-1.onrender.com/api/internship"),
           axios.get("https://internshalaclone2-0-1.onrender.com/api/job"),
         ]);
+
         setinternship(internshipres.data);
         setjob(jobres.data);
       } catch (error) {
@@ -143,12 +146,12 @@ export default function SvgSlider() {
         setLoading(false);
       }
     };
+
     fetchdata();
   }, [router]);
   if (loading) {
     return <div>loading...</div>;
   }
-  const [selectedCategory, setSelectedCategory] = useState("");
   const filteredInternships = (internships || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
   );
