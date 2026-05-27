@@ -123,14 +123,6 @@ export default function SvgSlider() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      window.location.href = "/login";
-      return;
-    }
-
     const fetchdata = async () => {
       try {
         const [internshipres, jobres] = await Promise.all([
@@ -138,8 +130,8 @@ export default function SvgSlider() {
           axios.get("https://internshalaclone2-0-1.onrender.com/api/job"),
         ]);
 
-        setinternship(internshipres.data);
-        setjob(jobres.data);
+        setinternship(internshipres.data || []);
+        setjob(jobres.data || []);
       } catch (error) {
         console.log(error);
       } finally {
@@ -148,7 +140,8 @@ export default function SvgSlider() {
     };
 
     fetchdata();
-  }, [router]);
+  }, []);
+  
   if(loading) return <div>loading...</div>;
   const filteredInternships = (internships || []).filter(
     (item: any) => !selectedCategory || item.category === selectedCategory
